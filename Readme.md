@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Александра Колесник](https://up.htmlacademy.ru/javascript/27/user/1951383).
-* Наставник: `Неизвестно`.
+* Студент: [Александра Колесник](https://htmlacademy.ru/profile/id1951383 ).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
