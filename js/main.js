@@ -12,15 +12,15 @@ function returnsRandomNumberFromInterval(min, max) {
 
     // во всех остальных случаях ничего я не придумала, пусть пока возвращает NaN
   }
-  return NaN
+  return NaN;
 }
 
 returnsRandomNumberFromInterval(1, 7); //аргументы для примера, после, думаю, там будут переменные
 
 
 //Функция для проверки максимальной длины строки.
-function checkStringLength(length_line, max_length) {
-  return length_line <= max_length;
+function checkStringLength(line, length) {
+  return line <= length;
 }
 
 checkStringLength(10, 140); //аргументы для примера, после, думаю, там будут переменные
