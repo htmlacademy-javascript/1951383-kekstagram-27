@@ -1,15 +1,13 @@
 
 // Кол-во объектов
-const FOTOS_COUNT = 25;
+const PHOTOS_COUNT = 25;
 // Кол-во аватаров
 const AVATARS_COUNT = 6;
-// Кол-во id аватаров
-const ID_COUNT = 1000;
 // Кол-во комментариев
-const COMMENTS_COUNT = 5;
+const COMMENTS_COUNT = getRandomPositiveInteger(1, 10);
 
 // Диапазон лайков
-const likesCount = {
+const LikesCount = {
   MIN: 15,
   MAX: 200,
 };
@@ -69,13 +67,12 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0,
 
 // Создание сообщения для комментария, функция частично взята из учебного проекта с разбора ДЗ
 const createMessage = () => {
-  Array.from({ length: getRandomPositiveInteger(1, 2)}, getRandomArrayElement(MESSAGES)).join('');
+  Array.from({ length: getRandomPositiveInteger(1, 2)}, () => getRandomArrayElement(MESSAGES)).join('');
 };
 
 // Создание комментария, функция частично взята из учебного проекта с разбора ДЗ
-const creatComment = () => ({
-  // id генерируется случайным образом из диапазона 1-1000
-  id: getRandomPositiveInteger(1, ID_COUNT),
+const creatComment = (index) => ({
+  id: index,
   // avatar генерируется случайным образом из диапазона 1-6
   avatar: `img/avatar-${getRandomPositiveInteger(1, AVATARS_COUNT)}.jpg`,
   message: createMessage(),
@@ -83,22 +80,25 @@ const creatComment = () => ({
 });
 
 // Создание одного объекта - описания фотографии
-const createFoto = () => ({
-  // id генерируется случайным образом из диапазона 1-25, не знаю, как сделать его не повторяющимся
-  id: getRandomPositiveInteger(1, FOTOS_COUNT),
-  // число для ссылки генерируется случайным образом из диапазона 1-25, не знаю, как сделать его не повторяющимся
-  url: `photos/${getRandomPositiveInteger(1, FOTOS_COUNT)}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomPositiveInteger(likesCount.MIN, likesCount.MAX),
-  // здесь должен генериться массив с комментариями, но я не уверена, что тут корректно
+const createPhoto = (_, index) => ({
+  // индекс будет прокинут из Array.from при вызове
+  id: (index + 1),
+  // число для ссылки будет прокинуто из Array.from при вызове
+  url: `photos/${index + 1}.jpg`,
+  // случайное описание из массива
+  description: `${getRandomArrayElement(DESCRIPTIONS)}`,
+  // случайное число из заданного диапазона
+  likes: getRandomPositiveInteger(LikesCount.MIN, LikesCount.MAX),
+  // генерится массив с комментариями
   comments: Array.from(
-    {length: getRandomPositiveInteger(0, COMMENTS_COUNT)}, creatComment()
+    {length: getRandomPositiveInteger(0, COMMENTS_COUNT)}, creatComment
   )
 });
 
 // Создание массива с объектами
-const allFotos = Array.from({length: FOTOS_COUNT}, createFoto);
+const allPhotos = Array.from({length: PHOTOS_COUNT}, createPhoto);
 
-isCorrectLength();
+isCorrectLength(1, 140);
 getRandomPositiveInteger();
-allFotos();
+
+
