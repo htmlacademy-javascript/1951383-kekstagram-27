@@ -101,4 +101,4 @@ const allPhotos = Array.from({length: PHOTOS_COUNT}, createPhoto);
 isCorrectLength(1, 140);
 getRandomPositiveInteger();
 
-
+allPhotos();
