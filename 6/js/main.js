@@ -1,3 +1,3 @@
 import './util.js';
 import './data.js';
-import './draw-miniatures';
+import './draw-miniatures.js';
