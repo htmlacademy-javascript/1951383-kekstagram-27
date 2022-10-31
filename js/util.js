@@ -51,11 +51,9 @@ const createPhoto = (_, index) => ({
 });
 
 // Создание массива с объектами
-const allPhotos = () => Array.from({length: PHOTOS_COUNT}, createPhoto);
+const getPhotos = () => Array.from({length: PHOTOS_COUNT}, createPhoto);
 
 isCorrectLength(1, 140);
 getRandomPositiveInteger();
 
-allPhotos();
-
-export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, allPhotos};
+export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos};
