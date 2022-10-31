@@ -1,5 +1,5 @@
 // импортируем функцию, с которой будем работать
-import {allPhotos} from './util.js';
+import {getPhotos} from './util.js';
 
 const drawImages = function () {
   // записываем в переменную блок для фотографий других пользователей
@@ -9,7 +9,7 @@ const drawImages = function () {
 
 
   // создание массива с фотографиями
-  const randomPhotos = allPhotos();
+  const randomPhotos = getPhotos();
 
   // добавление фрагмента
   const photosContainerFragment = document.createDocumentFragment();
