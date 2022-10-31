@@ -56,6 +56,4 @@ const getPhotos = () => Array.from({length: PHOTOS_COUNT}, createPhoto);
 isCorrectLength(1, 140);
 getRandomPositiveInteger();
 
-getPhotos();
-
 export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos};

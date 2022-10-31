@@ -1,3 +1,5 @@
-import './util.js';
+import {getPhotos} from './util.js';
 import './data.js';
-import './draw-miniatures.js';
+import {drawImages} from './draw-miniatures.js';
+
+drawImages(getPhotos());
