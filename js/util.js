@@ -12,39 +12,30 @@ function getRandomPositiveInteger (a, b) {
 }
 
 // Функция на проверку длины строки
-function isCorrectLength (string, length) {
-  return string.length <= length;
-}
+const isCorrectLength = (string, length) => string.length <= length;
 
 
-// Поиск случайного элемента в переданном массиве, функция из учебного проекта
+// Поиск случайного элемента в переданном массиве
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-// Создание сообщения для комментария, функция частично взята из учебного проекта с разбора ДЗ
-const createMessage = () => {
-  Array.from({ length: getRandomPositiveInteger(1, 2)}, () => getRandomArrayElement(MESSAGES)).join('');
-};
+// Создание сообщения для комментария
+const createMessage = () => Array.from({ length: getRandomPositiveInteger(1, 2)}, () => getRandomArrayElement(MESSAGES)).join('');
 
-// Создание комментария, функция частично взята из учебного проекта с разбора ДЗ
+
+// Создание комментария
 const creatComment = (index) => ({
   id: index,
-  // avatar генерируется случайным образом из диапазона 1-6
-  avatar: `img/avatar-${getRandomPositiveInteger(1, AVATARS_COUNT)}.jpg`,
+  avatar: `img/avatar-${getRandomPositiveInteger(1, AVATARS_COUNT)}.svg`,
   message: createMessage(),
   name: getRandomArrayElement(NICKNAMES),
 });
 
 // Создание одного объекта - описания фотографии
 const createPhoto = (_, index) => ({
-  // индекс будет прокинут из Array.from при вызове
   id: (index + 1),
-  // число для ссылки будет прокинуто из Array.from при вызове
   url: `photos/${index + 1}.jpg`,
-  // случайное описание из массива
   description: `${getRandomArrayElement(DESCRIPTIONS)}`,
-  // случайное число из заданного диапазона
   likes: getRandomPositiveInteger(LikesCount.MIN, LikesCount.MAX),
-  // генерится массив с комментариями
   comments: Array.from(
     {length: getRandomPositiveInteger(0, COMMENTS_COUNT)}, creatComment
   )
@@ -53,7 +44,10 @@ const createPhoto = (_, index) => ({
 // Создание массива с объектами
 const getPhotos = () => Array.from({length: PHOTOS_COUNT}, createPhoto);
 
-isCorrectLength(1, 140);
-getRandomPositiveInteger();
+// Проверка на клавишу ESC
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos};
+// Проверка на клавишу Enter
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey};

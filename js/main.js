@@ -1,5 +1,5 @@
 import {getPhotos} from './util.js';
 import './data.js';
-import {drawImages} from './draw-miniatures.js';
+import {drawSmallImages} from './draw-miniatures.js';
 
-drawImages(getPhotos());
+drawSmallImages(getPhotos());
