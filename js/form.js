@@ -13,16 +13,6 @@ const MAX_HASHTAG_FORM = 5;
 // Регулярка из скринкаста 8.19
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
-/*// Создание экземпляра Pristine
-const pristine = new Pristine (form, {
-  // Класс родительского элемента, в который добавляется класс ошибки / отсутствия ошибки
-  classTo: 'img-upload__field-wrapper',
-  // Класс родительского элемента, куда добавляется текстовый элемент ошибки
-  errorTextParent: 'img-upload__field-wrapper',
-  // Класс текста ошибки
-  errorTextClass: 'img-upload__field-wrapper__error',
-});*/
-
 //подключение формы  к Pristine
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -122,12 +112,13 @@ pristine.addValidator(
 
 // Функция для валидации формы
 const onFormSubmit = (evt) => {
-  // Отменяем отправку
-  evt.preventDefault();
   // Проверяем валидность
   const isValid = pristine.validate();
-  // Форма блокируется, если невалидна
-  form.disabled = !isValid;
+  // Если форма невалидна
+  if(!isValid){
+  // Отменяем отправку
+    evt.preventDefault();
+  };
 };
 
 // Слушатель для изменения в форме - показа окна
@@ -135,6 +126,6 @@ fileField.addEventListener('change', onFileInputChange);
 // Слушатель для кнопки закрытия
 closelButton.addEventListener('click', oncloselButtonClick);
 // Слушатель для отправки формы
-form.addEventListener('input', onFormSubmit);
+form.addEventListener('submit', onFormSubmit);
 
 
