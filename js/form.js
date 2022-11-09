@@ -118,7 +118,7 @@ const onFormSubmit = (evt) => {
   if(!isValid){
   // Отменяем отправку
     evt.preventDefault();
-  };
+  }
 };
 
 // Слушатель для изменения в форме - показа окна
