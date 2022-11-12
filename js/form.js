@@ -1,4 +1,6 @@
 import {isEscapeKey} from './util.js';
+import {resetScale} from './scale-photo.js';
+import {resetEffects} from './photo-effects.js';
 
 const fileField = document.querySelector('#upload-file');
 const overlayElement = document.querySelector('.img-upload__overlay');
@@ -28,6 +30,8 @@ const checkLengthDescriptionPhoto = (text) => text.length <= MAX_LENGTH_DESCRIPT
 
 // Функция показа формы
 const showForm = () => {
+  // Вызов функции для сброса масштабирования
+  resetScale();
   overlayElement.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
@@ -39,6 +43,8 @@ const hideForm = () => {
   form.reset();
   // Сброс pristine
   pristine.reset();
+  // Сброс эффектов
+  resetEffects();
   overlayElement.classList.add('hidden');
   body.classList.remove('modal-open');
 };
