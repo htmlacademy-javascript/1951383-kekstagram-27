@@ -3,7 +3,7 @@ import {isEscapeKey} from './util.js';
 // Число прогружаемых комментариев
 const COUNT_LOAD_COMMENT = 5;
 
-// "боди" сайта
+// "body" сайта
 const body = document.querySelector('body');
 // Фото крупным планом
 const bigPicture = document.querySelector('.big-picture');
