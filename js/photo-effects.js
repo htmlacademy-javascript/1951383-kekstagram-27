@@ -9,7 +9,7 @@ const slider = imgUploadSection.querySelector('.effect-level__slider');
 // Ссылка на редактируемое изображение
 const photoPreview = form.querySelector('.img-upload__preview img');
 // Элемент для сохранения значений наложенного эффекта
-const effectLevel = form.querySelector('.effect-level__value');
+const effectLevelElement = form.querySelector('.effect-level__value');
 // Изменение глубины эффекта, накладываемого на изображение
 const blockSliderEffect = form.querySelector('.img-upload__effect-level');
 
@@ -55,16 +55,23 @@ const onFormChange = (evt) => {
 
 // Передача значений для редактирования стилей
 const onSliderUpdate = () => {
+  // Обнуляем все значения
   photoPreview.style.filter = 'none';
   photoPreview.className = '';
-  effectLevel.value = '';
+  effectLevelElement.value = '';
+  // Если выбранный элемент без эффектов - заканчиваем выполнение функции
   if (isDefault()) {
     return;
   }
+  // Записываем в переменную значение, которое вернул нам слайдер
   const sliderValue = slider.noUiSlider.get();
+  // Меняем CSS-стили картинки
+  // unit - единица измерения для корректного отображения CSS стиля
   photoPreview.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
+  // Добавляем фотографии класс выбранного эффекта
   photoPreview.classList.add(`effects__preview--${chosenEffect.name}`);
-  effectLevel.value = sliderValue;
+  // Записываем в скрытую форму
+  effectLevelElement.value = sliderValue;
 };
 
 // Сброс значений
@@ -76,14 +83,16 @@ const resetEffects = () => {
 // Создание слайдера
 window.noUiSlider.create(slider, {
   range: {
+    // Ссылка на DEFAULT_EFFECT, который меняется на нужный эффект при выборе последнего
     min: DEFAULT_EFFECT.min,
     max: DEFAULT_EFFECT.max,
   },
-  // Значение на старте - 100%
+  // Значение на старте - 100% по ТЗ
   start: DEFAULT_EFFECT.max,
   step: DEFAULT_EFFECT.step,
   connect: 'lower'
 });
+
 updateSlider();
 
 // Обработчики событий

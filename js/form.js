@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {resetScale} from './scale-photo.js';
 import {resetEffects} from './photo-effects.js';
+import {showSuccessMessage, showUploadErrorMessage} from './messages.js';
+
 
 const fileField = document.querySelector('#upload-file');
 const overlayElement = document.querySelector('.img-upload__overlay');
@@ -25,7 +27,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper-error'
 });
 
-//проверка длинны комментария к фото
+// Проверка длины комментария к фото
 const checkLengthDescriptionPhoto = (text) => text.length <= MAX_LENGTH_DESCRIPTION;
 
 // Функция показа формы
@@ -56,7 +58,7 @@ const onFileInputChange = () => {
 };
 
 // Обработчик для скрытия формы по кнопке
-const oncloselButtonClick = () => {
+const onСloseButtonClick = () => {
   hideForm ();
 };
 
@@ -118,19 +120,43 @@ pristine.addValidator(
 
 // Функция для валидации формы
 const onFormSubmit = (evt) => {
-  // Проверяем валидность
-  const isValid = pristine.validate();
-  // Если форма невалидна
-  if(!isValid){
   // Отменяем отправку
-    evt.preventDefault();
+  evt.preventDefault();
+  // Функция для проверки валидности
+  const isValid = pristine.validate();
+  // Если форма валидна
+  if(isValid) {
+    // Собираем данные
+    const formData = new FormData(evt.target);
+    // Отправляем на сервер
+    fetch(
+      'https://27.javascript.pages.academy/kekstagram',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ) .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+      .then(() => {
+        // Если все ок - сообщение об успехе и закрытие формы
+        showSuccessMessage();
+        hideForm();
+      })
+      .catch(() => {
+        // При ошибке показываем сообщение ошибки
+        showUploadErrorMessage();
+      });
   }
 };
 
 // Слушатель для изменения в форме - показа окна
 fileField.addEventListener('change', onFileInputChange);
 // Слушатель для кнопки закрытия
-closelButton.addEventListener('click', oncloselButtonClick);
+closelButton.addEventListener('click', onСloseButtonClick);
 // Слушатель для отправки формы
 form.addEventListener('submit', onFormSubmit);
 

@@ -4,6 +4,16 @@ import {drawSmallImages} from './draw-miniatures.js';
 import './form.js';
 import './scale-photo.js';
 import './photo-effects.js';
+import {getData} from './data-server-exchange.js';
+import {showErrorAlert} from './util.js';
 
-drawSmallImages(getPhotos());
+getData((photos) => {
+  drawSmallImages(photos);
+},
+() => {
+  showErrorAlert('Не удалось загрузить изображения.');
+}
+);
+
+// drawSmallImages(getPhotos());
 
