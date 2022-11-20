@@ -73,4 +73,36 @@ const showErrorAlert = (message) => {
 
 };
 
-export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert};
+// Функция для устранения дребезга
+function debounce (callback, timeoutDelay) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+// Функция для создания случайного массива
+const getRandomArray = (array, countElement) => {
+  if (array.length <= countElement) {
+    return array;
+  }
+
+  let resultArray = [];
+  while (resultArray.length !== countElement) {
+    resultArray.push(getRandomArrayElement(array));
+    resultArray = Array.from(new Set(resultArray));
+  }
+  return resultArray;
+};
+// Функция для метода sort (по кол-ву комментариев)
+const comparePhotos = (photoA, photoB) => {
+  const commentA = photoA.comments.length;
+  const commentB = photoB.comments.length;
+  // Сортируем по убыванию
+  return commentB - commentA;
+};
+// Сортировка по кол-ву комментариев
+const sortedByMostDiscussed = (photos) => photos.slice().sort(comparePhotos);
+
+export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert, debounce, getRandomArray, sortedByMostDiscussed};
