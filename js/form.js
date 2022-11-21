@@ -3,6 +3,11 @@ import {resetScale} from './scale-photo.js';
 import {resetEffects} from './photo-effects.js';
 import {showSuccessMessage, showUploadErrorMessage} from './messages.js';
 
+const MAX_LENGTH_DESCRIPTION = 140;
+const MAX_HASHTAG_FORM = 5;
+// Регулярка из скринкаста 8.19
+const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
+const SEND_URL = 'https://27.javascript.pages.academy/kekstagram';
 
 const fileField = document.querySelector('#upload-file');
 const overlayElement = document.querySelector('.img-upload__overlay');
@@ -11,11 +16,6 @@ const closelButton = document.querySelector('#upload-cancel');
 const form = document.querySelector('.img-upload__form');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
-
-const MAX_LENGTH_DESCRIPTION = 140;
-const MAX_HASHTAG_FORM = 5;
-// Регулярка из скринкаста 8.19
-const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
 //подключение формы  к Pristine
 const pristine = new Pristine(form, {
@@ -118,7 +118,7 @@ pristine.addValidator(
 );
 
 
-// Функция для валидации формы
+// Функция для валидации и отправки формы
 const onFormSubmit = (evt) => {
   // Отменяем отправку
   evt.preventDefault();
@@ -130,7 +130,7 @@ const onFormSubmit = (evt) => {
     const formData = new FormData(evt.target);
     // Отправляем на сервер
     fetch(
-      'https://27.javascript.pages.academy/kekstagram',
+      SEND_URL,
       {
         method: 'POST',
         body: formData,

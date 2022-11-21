@@ -43,7 +43,7 @@ const onFilterClick = (evt, cards) => {
   drawSmallImages(getFilteredPictures(cards));
 };
 
-// Обработчик событий по смене клика
+// Обработчик событий по смене фильтра
 const changeFilter = (cards) => {
   cardFiltersForm.addEventListener('click',
     debounce((evt) => {

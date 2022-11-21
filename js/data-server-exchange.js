@@ -1,5 +1,7 @@
+const GET_URL = 'https://27.javascript.pages.academy/kekstagram/data';
+
 // Создаем функцию для получения данных с двумя входными параметрами
-const getData = (onSuccess, onFail) => fetch('https://27.javascript.pages.academy/kekstagram/data')
+const getData = (onSuccess, onFail) => fetch(GET_URL)
   .then((response) => {
     if (response.ok) {
       return response.json();
