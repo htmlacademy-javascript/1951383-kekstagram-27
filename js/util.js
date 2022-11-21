@@ -83,26 +83,20 @@ function debounce (callback, timeoutDelay) {
 }
 
 // Функция для создания случайного массива
-const getRandomArray = (array, countElement) => {
-  if (array.length <= countElement) {
-    return array;
+const shuffle = (array) => {
+  let currentIndex = array.length, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
   }
 
-  let resultArray = [];
-  while (resultArray.length !== countElement) {
-    resultArray.push(getRandomArrayElement(array));
-    resultArray = Array.from(new Set(resultArray));
-  }
-  return resultArray;
+  return array;
 };
-// Функция для метода sort (по кол-ву комментариев)
-const comparePhotos = (photoA, photoB) => {
-  const commentA = photoA.comments.length;
-  const commentB = photoB.comments.length;
-  // Сортируем по убыванию
-  return commentB - commentA;
-};
-// Сортировка по кол-ву комментариев
-const sortedByMostDiscussed = (photos) => photos.slice().sort(comparePhotos);
 
-export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert, debounce, getRandomArray, sortedByMostDiscussed};
+// Функция для сортировки по кол-ву комментариев
+const sortByComments = (a, b) => b.comments.length - a.comments.length;
+
+export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert, debounce, shuffle, sortByComments};
