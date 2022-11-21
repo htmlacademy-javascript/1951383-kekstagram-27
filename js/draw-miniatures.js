@@ -1,5 +1,17 @@
 import { openBigPhoto } from './popup-full-photos.js';
+// Блок-фильтрация
+const imageFilters = document.querySelector('.img-filters');
+
+const clearPhotos = () => {
+  const pictures = document.querySelectorAll('.picture');
+  if (pictures.length > 0) {
+    pictures.forEach((picture) => picture.remove());
+  }
+};
+
+
 const drawSmallImages = (photos) => {
+  clearPhotos();
   // записываем в переменную блок для фотографий других пользователей
   const photosContainerElement = document.querySelector('.pictures');
   // шаблон нового элемента-ссылки
@@ -25,6 +37,8 @@ const drawSmallImages = (photos) => {
 
     photosContainerFragmentElement.append(randomPhotoElement);
   });
+  // Показываем блок фильтрации
+  imageFilters.classList.remove('img-filters--inactive');
 
   photosContainerElement.append(photosContainerFragmentElement);
 };

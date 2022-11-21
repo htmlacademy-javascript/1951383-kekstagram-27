@@ -73,4 +73,30 @@ const showErrorAlert = (message) => {
 
 };
 
-export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert};
+// Функция для устранения дребезга
+function debounce (callback, timeoutDelay) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+// Функция для создания случайного массива
+const shuffle = (array) => {
+  let currentIndex = array.length, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+};
+
+// Функция для сортировки по кол-ву комментариев
+const sortByComments = (a, b) => b.comments.length - a.comments.length;
+
+export {getRandomPositiveInteger, isCorrectLength, getRandomArrayElement, createPhoto, getPhotos, isEscapeKey, isEnterKey, showErrorAlert, debounce, shuffle, sortByComments};
