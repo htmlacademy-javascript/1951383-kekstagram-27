@@ -49,6 +49,7 @@ const hideForm = () => {
   resetEffects();
   overlayElement.classList.add('hidden');
   body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscKeyDown);
 };
 
 
@@ -58,17 +59,20 @@ const onFileInputChange = () => {
 };
 
 // Обработчик для скрытия формы по кнопке
-const onСloseButtonClick = () => {
+const onCloseButtonClick = () => {
   hideForm ();
 };
 
 // Проверка на отсутствие фокуса на поле комментария или хештега
-function isFieldFocused () {
-  return document.activeElement === hashtagField || document.activeElement === commentField;
-}
+const isFieldFocused = () => document.activeElement === hashtagField || document.activeElement === commentField;
 
 // Обработчик скрытия окна при нажатии Esc
 function onEscKeyDown(evt) {
+  // Проверка на закрытие модалки
+  if (document.body.lastChild.classList && document.body.lastChild.classList.contains('error')) {
+    return;
+  }
+
   if (isEscapeKey(evt) && !isFieldFocused()) {
     evt.preventDefault();
     hideForm();
@@ -156,8 +160,6 @@ const onFormSubmit = (evt) => {
 // Слушатель для изменения в форме - показа окна
 fileField.addEventListener('change', onFileInputChange);
 // Слушатель для кнопки закрытия
-closelButton.addEventListener('click', onСloseButtonClick);
+closelButton.addEventListener('click', onCloseButtonClick);
 // Слушатель для отправки формы
 form.addEventListener('submit', onFormSubmit);
-
-
