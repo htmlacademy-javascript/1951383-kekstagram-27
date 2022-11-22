@@ -1,6 +1,5 @@
 import {isEscapeKey} from './util.js';
 
-
 const showMessage = (message, button) => {
   document.body.append(message);
 

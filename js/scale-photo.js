@@ -1,3 +1,11 @@
+// Требования к масштабированию
+const PARAMETRS_SCALE = {
+  minSize: 25,
+  maxSize: 100,
+  step: 25,
+  start: 100,
+};
+
 // Элемент формы, отвечающий за размер изображения
 const scaleField = document.querySelector('.img-upload__scale');
 // Кнопка увеличения масштаба
@@ -9,22 +17,14 @@ const scaleValue = document.querySelector('.scale__control--value');
 // Ссылка на редактируемое изображение
 const photoPreview = document.querySelector('.img-upload__preview img');
 
-// Требования к масштабированию
-const PARAMETRS_SCALE = {
-  minSize: 25,
-  maxSize: 100,
-  step: 25,
-  start: 100,
-};
-
-// Функция для сброса машстабирования
+// Функция для сброса масштабирования
 const resetScale = () => {
   scaleValue.value = `${PARAMETRS_SCALE.start}%`;
   photoPreview.style.transform = `scale(${scaleValue.value})`;
 };
 
-// Обработчик кнопки увеличения
-const onBiggerButton = () => {
+// Увеличение масштаба
+const increaseScale = () => {
   // Возвращаем значение поля - целое число в десятичной системе исчисления и записываем в переменную
   let parseIntValue = parseInt(scaleValue.value, 10);
   // Если значение поля меньше максимального
@@ -36,8 +36,8 @@ const onBiggerButton = () => {
   }
 };
 
-// Обработчик кнопки уменьшения масштаба
-const onSmallerButton = () => {
+// Уменьшение масштаба
+const decreaseScale = () => {
 // Возвращаем значение поля - целое число в десятичной системе исчисления и записываем в переменную
   let parseIntValue = parseInt(scaleValue.value, 10);
   // Если значение поля больше мминимального
@@ -52,10 +52,10 @@ const onSmallerButton = () => {
 // Обработчик клика на кнопки на элементе
 scaleField.addEventListener('click', (evt) => {
   if (evt.target === biggerButton) {
-    onBiggerButton();
+    increaseScale();
   }
   if (evt.target === smallerButton) {
-    onSmallerButton();
+    decreaseScale();
   }
 });
 

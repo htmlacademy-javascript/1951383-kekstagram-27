@@ -34,22 +34,22 @@ const clearPictureCommentsData = () => {
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPhoto();
+    onCloseBigPhoto();
   }
 };
 
 // Функция для закрытия
-function closeBigPhoto () {
+function onCloseBigPhoto () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   clearPictureCommentsData();
 
   // Удаляем слушатель копки закрытия
-  cancelBigPicture.removeEventListener('click', closeBigPhoto);
+  cancelBigPicture.removeEventListener('click', onCloseBigPhoto);
   // Удаляем слушатель Esc
   document.removeEventListener('keydown', onPopupEscKeydown);
   // Удаляем слушатель кнопки "Загрузить еще"
-  commentsLoader.removeEventListener('click', closeBigPhoto);
+  commentsLoader.removeEventListener('click', onCloseBigPhoto);
   // Очищаем данные
   clearPictureCommentsData ();
 }
@@ -99,7 +99,7 @@ const showMore = () => {
 };
 
 // "живая" строка загруженных комментариев
-const liveCommentCounter = () => {
+const updateLiveCommentCounter = () => {
   counterLoadComment.textContent = `${commentsCount.textContent - commentsList.querySelectorAll('.hidden').length} из ${commentsCount.textContent} комментариев`;
 };
 
@@ -107,7 +107,7 @@ const liveCommentCounter = () => {
 const onClickUploadComment = (evt) => {
   evt.preventDefault();
   showMore();
-  liveCommentCounter();
+  updateLiveCommentCounter();
 };
 
 // Функция при открытии окна
@@ -142,11 +142,11 @@ const openBigPhoto = ({ url, likes, comments, description }) => {
   // Вызываем функцию для показа пяти комментариев
   showMore();
   // Добавляем строку со счетчиками комментариев
-  liveCommentCounter();
+  updateLiveCommentCounter();
 
   // Добавляем слушатели
   // Cлушатель для кнопки-крестика
-  cancelBigPicture.addEventListener('click', closeBigPhoto);
+  cancelBigPicture.addEventListener('click', onCloseBigPhoto);
   // Слушатель для кнопки Esc
   document.addEventListener('keydown', onPopupEscKeydown);
   // Cлушатель для кнопки "Загрузить еще"
